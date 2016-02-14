@@ -1,0 +1,8 @@
+export(BinAddHaz, MultAddHaz)
+importFrom(boot, boot, boot.ci)
+importFrom(MASS, ginv)
+importFrom(Matrix, bdiag)
+importFrom("stats", "coef", "constrOptim", "fitted", "glm", "model.matrix",
+           "model.offset", "model.response", "model.weights", "pnorm", "poisson",
+           "printCoefmat", "pt")
+importFrom("utils", "capture.output")

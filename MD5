@@ -1,0 +1,8 @@
+3332b7019d82870273f72f01ca3bae50 *DESCRIPTION
+7540a4733d4ff4c8ac0c14417955e5a6 *NAMESPACE
+368a2253e5ccc9968df316189a854bbf *R/BinAddHaz.R
+967b9c420ebc5fcf42994fbe7d4a6b33 *R/MultAddHaz.R
+869cc6e70b9a907a3a9f63fd87cca73f *data/disabData.rda
+f4dae8313dc74cb8ffd691fd191cda46 *man/BinAddHaz.Rd
+ca0a374c32ea04fa5343977fe4f49d92 *man/MultAddHaz.Rd
+0908cc6be16b1aa34a611f22e2db6655 *man/disabData.Rd
