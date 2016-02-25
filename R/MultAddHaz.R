@@ -17,10 +17,13 @@ MultAddHaz <- function(formula, data, subset, weights, na.action,
   mt <- attr(mf, "terms")
   y <- model.response(mf, "numeric")
 
-  w <- model.weights(mf)
+  if(is.null(model.weights(mf))){
+    w <- 1} else {
+      w <- model.weights(mf)
+    }
+
   if(mean(w) != 1){
-    w <- w/mean(w)
-  }
+    w <- w/mean(w)}
 
   offset <- model.offset(mf)
   x <- model.matrix(mt, mf, contrasts)

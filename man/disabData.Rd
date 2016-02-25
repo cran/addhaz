@@ -30,7 +30,7 @@ The data were obtained from the National Health Survey 2013, Brazil. For more in
 }
 
 \references{
-Szwarcwald, C.L., Malta, D.C., Pereira, C.A., Vieira, M.L., Conde, W.L., Souza J?nior, P.R., et al. (2013). National Health Survey in Brazil: design and methodology of application. Cien Saude Colet., 19(2): 333:42 [Article in Portuguese].
+Szwarcwald, C.L., Malta, D.C., Pereira, C.A., Vieira, M.L., Conde, W.L., Souza-Junior, P.R., et al. (2013). National Health Survey in Brazil: design and methodology of application. Cien Saude Colet., 19(2): 333:42 [Article in Portuguese].
 
 Instituto Brasileiro de Geografia e Estatistica (IBGE). Pesquisa Nacional de Saude 2013. Available at <\url{http://www.ibge.gov.br/home/estatistica/populacao/pns/2013/}>.
 }
@@ -40,5 +40,5 @@ Instituto Brasileiro de Geografia e Estatistica (IBGE). Pesquisa Nacional de Sau
   str(disabData)
 }
 
-\keyword{ ~datasets }
-\keyword{ ~survey }
+\keyword{datasets}
+\keyword{survey}

@@ -1,8 +1,8 @@
-932191ebd22699924ed59bf619352916 *DESCRIPTION
+8c13405eef782c716d7c9107e655f54b *DESCRIPTION
 bb8abdd5ca605670121312c94beddbea *NAMESPACE
-368a2253e5ccc9968df316189a854bbf *R/BinAddHaz.R
-967b9c420ebc5fcf42994fbe7d4a6b33 *R/MultAddHaz.R
+87005c6962ffb2cb51de03610dc08547 *R/BinAddHaz.R
+6fa24dde16baae68cb91cdc7cace3bc3 *R/MultAddHaz.R
 869cc6e70b9a907a3a9f63fd87cca73f *data/disabData.rda
-f4dae8313dc74cb8ffd691fd191cda46 *man/BinAddHaz.Rd
-ca0a374c32ea04fa5343977fe4f49d92 *man/MultAddHaz.Rd
-0908cc6be16b1aa34a611f22e2db6655 *man/disabData.Rd
+8847a9c39dd10831cdd7b90dbd3e7daa *man/BinAddHaz.Rd
+ac95f855bed54cfb28b4ef1494866066 *man/MultAddHaz.Rd
+f8df2e4811c89d4642962a2e5b279e92 *man/disabData.Rd

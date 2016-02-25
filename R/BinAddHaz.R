@@ -13,7 +13,13 @@ BinAddHaz <- function (formula, data, subset, weights, na.action,
   mf <- eval.parent(mf)
   mt <- attr(mf, "terms")
   y <- model.response(mf, "numeric")
-  w <- model.weights(mf)
+  #wt <- model.weights(mf)
+
+  if(is.null(model.weights(mf))){
+    w <- 1} else {
+      w <- model.weights(mf)
+    }
+
   if(mean(w) != 1){
     w <- w/mean(w)}
 

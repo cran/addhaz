@@ -107,6 +107,6 @@ Renata T C Yokota. This function is based on the R code developed by Caspar W N 
   summary(fit3)}
 }
 
-\keyword{ ~models }
-\keyword{ ~regression }
-\keyword{ ~survey }
+\keyword{models}
+\keyword{regression}
+\keyword{survey}
