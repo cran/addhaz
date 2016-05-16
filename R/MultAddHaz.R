@@ -17,13 +17,10 @@ MultAddHaz <- function(formula, data, subset, weights, na.action,
   mt <- attr(mf, "terms")
   y <- model.response(mf, "numeric")
 
-  if(is.null(model.weights(mf))){
-    w <- 1} else {
-      w <- model.weights(mf)
-    }
-
+  w <- model.weights(mf)
   if(mean(w) != 1){
-    w <- w/mean(w)}
+    w <- w/mean(w)
+  }
 
   offset <- model.offset(mf)
   x <- model.matrix(mt, mf, contrasts)
@@ -228,104 +225,81 @@ MultAddHaz <- function(formula, data, subset, weights, na.action,
   ### CI
   if(bootstrap == FALSE){
 
-    CovMultAddHaz <- function(start.val, x, y){
-      beta_ij <- matrix(unlist(split(start.val, cut(seq_along(start.val), ncol(y.resp),
-                                                labels = FALSE))), ncol = ncol(y.resp))
+    CovMultAddHaz <- function(start.val, x, y) {
+      beta_ij <- matrix(unlist(split(start.val, cut(seq_along(start.val), 
+                                                    ncol(y.resp), labels = FALSE))), ncol = ncol(y.resp))
+      
       eta_ij <- matrix(NA, ncol = ncol(beta_ij), nrow = nrow(x))
       pi_ij <- matrix(NA, ncol = ncol(beta_ij), nrow = nrow(x))
-      for (i in 1:ncol(beta_ij)){
-        eta_ij[,i] <- as.vector(x %*% beta_ij[,i])
-      }
-      pi_i = 1-exp(-(apply(eta_ij, 1, sum)))
-      for (i in 1:ncol(beta_ij)){
-        pi_ij[,i] <- pi_i *(eta_ij[,i]/apply(eta_ij, 1, sum))}
       sum.y <- apply(y.resp, 1, sum)
+      
+      
+      for (i in 1:ncol(beta_ij)) {
+        eta_ij[, i] <- as.vector(x %*% beta_ij[, i])
+      }
+      
+      sum.eta_ij <- apply(eta_ij, 1, sum)
+      pi_i = 1 - exp(-(sum.eta_ij))
+      for (i in 1:ncol(beta_ij)) {
+        pi_ij[, i] <- pi_i * (eta_ij[, i]/sum.eta_ij)
+      }
       sum.pi_ij <- apply(pi_ij, 1, sum)
+      
+      R = sum.y * ((1/(sum.eta_ij)^2) - ((exp(-sum.eta_ij))/(1 - exp(-sum.eta_ij))^2))
+      R2 = (y.resp/(eta_ij)^2)
+      
+      djj = R - R2
+      
+      jj = vector("list", ncol(y.resp))
+      for (i in 1:ncol(y.resp)) {
+        jj[[i]] <- t(x) %*% diag(djj[, i]) %*% x
+      }
 
-      # j = j
-      jj.1 <- matrix(NA, nrow = nrow(x), ncol = ncol(y.resp))
-      jj.2 <- matrix(NA, nrow = nrow(x), ncol = ncol(y.resp))
-
-      for (i in 1: ncol(y.resp)){
-        jj.1[, i] <- (1 - sum.y) * ( (((1 - pi_ij[,i]) * (1 - sum.pi_ij)) - (1 - pi_ij[,i])^2)/(1 - sum.pi_ij)^2)
-        jj.2[, i] <- sum.y * ((pi_ij[, i] - 1)/(pi_ij[, i])^2)}
-      jjd <- jj.1 + jj.2
-
-      jj <- list()
-      for (i in 1:ncol(y.resp)){
-        jj[[i]] <- t(x) %*% diag(jjd[,i]) %*% x}
-
-      # j != j'
-      jj.prime <- list()
-
-      for (i in 1:ncol(y.resp)){
-        jj.prime[[i]] <- (1 - sum.y) * ( ((1 - pi_ij) * (1 - pi_ij[, i]))/(1 - sum.pi_ij)^2)}
-
-      jjp.mat <- matrix(unlist(jj.prime), ncol = ncol(y.resp)*ncol(y.resp))
-
-      # Removing j = j'
-      seq <- NULL
-      for (i in 0:(ncol(y.resp) -1)){
-        seq[i] = 1 + (i * ncol(y.))}
-
-      jjp.mat2 <- jjp.mat[,-c(1,seq)]
-
-      # Removing duplicates
-      if(ncol(y.resp) > 2) {
-        dup.col <- duplicated(t(jjp.mat2))
-        jjp.mat3 <- jjp.mat2[, !dup.col]} else {
-        jjp.mat3 <- jjp.mat2}
-
-      # selecting the important columns of the matrix
-      jjp.d <- list()
-      for (i in 1:ncol(y.resp)){
-        jjp.d[[i]] <- t(x) %*% diag(jjp.mat3[,i]) %*% x}
-
-      if (ncol(y.resp) == 2){
-        cov1 <- cbind(jj[[1]], jjp.d[[1]])
-        cov2 <- cbind(jjp.d[[2]], jj[[2]])
-        vcov <- -1 * rbind(cov1, cov2)} else {
-
+      jjp = vector("list", ncol(y.resp))
+      for (i in 1:ncol(y.resp)) {
+        jjp[[i]] <- t(x) %*% diag(R) %*% x
+      }
+      
+      if (ncol(y.resp) == 2) {
+        cov1 <- cbind(jj[[1]], jjp[[1]])
+        cov2 <- cbind(jjp[[2]], jj[[2]])
+        vcov <- -1 * rbind(cov1, cov2)
+      } else {
         cov.mat <- bdiag(jj)
-
         used <- 0
-
         a <- ncol(x)
         b <- ncol(y.resp)
-
-        for (irow in 1:(b - 1)){
-
-          tempMat <- jjp.d[[used + 1]]
-
-          if ((used + 1) != length(jjp.d)){
-             for (k in (used + 2):(used + b - irow)){
-               tempMat <- cbind(tempMat, jjp.d[[k]])}
+        for (irow in 1:(b - 1)) {
+          tempMat <- jjp[[used + 1]]
+          if ((used + 1) != length(jjp)) {
+            for (k in (used + 2):(used + b - irow)) {
+              tempMat <- cbind(tempMat, jjp[[k]])
+            }
           }
           rows <- seq((irow - 1) * a + 1, irow * a, length = a)
-          columns <- seq(irow*a+1, a*b, length=a*b-irow*a)
+          columns <- seq(irow * a + 1, a * b, length = a * 
+                           b - irow * a)
           cov.mat[rows, columns] <- tempMat
-
-          used <- used+b-irow
+          used <- used + b - irow
         }
-
         usedL <- 0
-
-        for (irow in 2:b){
-
-          tempMat <- jjp.d[[usedL+1]]
-
-          if ((usedL+1) > 1){
-            for (k in (usedL+2):(usedL+2-b+irow)){
-              tempMat <- cbind(tempMat, jjp.d[[k]])}
+        for (irow in 2:b) {
+          tempMat <- jjp[[usedL + 1]]
+          if ((usedL + 1) > 1) {
+            for (k in (usedL + 2):(usedL + 2 - b + irow)) {
+              tempMat <- cbind(tempMat, jjp[[k]])
+            }
           }
-          rows <- seq((irow-1)*a+1, irow*a, length=a)
-          columns <- seq(1, a*(irow-1), length=a*(irow-1))
+          rows <- seq((irow - 1) * a + 1, irow * a, length = a)
+          columns <- seq(1, a * (irow - 1), length = a * 
+                           (irow - 1))
           cov.mat[rows, columns] <- tempMat
-
-          usedL <- usedL+2-b+irow}
+          usedL <- usedL + 2 - b + irow
+        }
         vcov <- -1 * cov.mat
+        return(vcov)
       }
-      return(vcov)}
+    }
 
     vcov <- CovMultAddHaz(start.val = Coeff, x = x, y = y)
     Invcov <- solve(vcov)

@@ -1,7 +1,7 @@
-8c13405eef782c716d7c9107e655f54b *DESCRIPTION
+149fa60a2474c3e8ca9a7b89ae30b83f *DESCRIPTION
 bb8abdd5ca605670121312c94beddbea *NAMESPACE
 87005c6962ffb2cb51de03610dc08547 *R/BinAddHaz.R
-6fa24dde16baae68cb91cdc7cace3bc3 *R/MultAddHaz.R
+31f62aac72f70907914da031d072fdbe *R/MultAddHaz.R
 869cc6e70b9a907a3a9f63fd87cca73f *data/disabData.rda
 8847a9c39dd10831cdd7b90dbd3e7daa *man/BinAddHaz.Rd
 ac95f855bed54cfb28b4ef1494866066 *man/MultAddHaz.Rd
