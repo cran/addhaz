@@ -1,11 +1,10 @@
-export(BinAddHaz, MultAddHaz)
+export(BinAddHaz, MultAddHaz, LRTest)
 importFrom(boot, boot, boot.ci)
 importFrom(MASS, ginv)
 importFrom(Matrix, bdiag)
 importFrom("stats", "coef", "constrOptim", "fitted", "glm", "model.matrix",
-           "model.offset", "model.response", "model.weights", "pnorm", "poisson",
-           "printCoefmat", "pt")
-importFrom("utils", "capture.output")
+           "model.offset", "model.response", "model.weights", "pchisq", "pnorm",
+           "poisson", "pt")
 S3method(print, binaddhazmod)
 S3method(summary, binaddhazmod)
 S3method(predict, binaddhazmod)

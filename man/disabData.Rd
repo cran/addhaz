@@ -12,7 +12,7 @@ data(disabData)
 }
 
 \format{
-This data set has information about disability and chronic conditions. The disability outcomes were defined based on limitations on instrumental activities of daily living (IADL). Individuals with missing data were excluded. The data frame contains 7 variables:
+This dataset has information about disability and chronic conditions. The disability outcomes were defined as limitations on instrumental activities of daily living (IADL). Individuals with missing data were excluded. The data frame contains 7 variables:
 \itemize{
   \item \bold{dis.bin:} disability as a binary variable, with 2 categories: 0 (no disability),
   1 (disability).
@@ -30,7 +30,7 @@ The data were obtained from the National Health Survey 2013, Brazil. For more in
 }
 
 \references{
-Szwarcwald, C.L., Malta, D.C., Pereira, C.A., Vieira, M.L., Conde, W.L., Souza-Junior, P.R., et al. (2013). National Health Survey in Brazil: design and methodology of application. Cien Saude Colet., 19(2): 333:42 [Article in Portuguese].
+Szwarcwald, C.L., Malta, D.C., Pereira, C.A., Vieira, M.L., Conde, W.L., Souza Junior, P.R., et al. (2013). National Health Survey in Brazil: design and methodology of application. Cien Saude Colet., 19(2): 333:42 [Article in Portuguese].
 
 Instituto Brasileiro de Geografia e Estatistica (IBGE). Pesquisa Nacional de Saude 2013. Available at <\url{http://www.ibge.gov.br/home/estatistica/populacao/pns/2013/}>.
 }
@@ -40,5 +40,5 @@ Instituto Brasileiro de Geografia e Estatistica (IBGE). Pesquisa Nacional de Sau
   str(disabData)
 }
 
-\keyword{datasets}
-\keyword{survey}
+\keyword{ ~datasets }
+\keyword{ ~survey }
